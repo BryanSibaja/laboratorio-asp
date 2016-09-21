@@ -1,0 +1,72 @@
+﻿@model Laboratorio_B46671.Models.ModeloIntermedio
+
+@{
+    ViewBag.Title = "Cliente";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Nombre
+        </th>
+        <th>
+            Primer Apellido
+        </th>
+        <th>
+            Telefonos
+        </th>
+        <th>
+            Cuentas
+        </th>
+
+    </tr>
+
+
+    <h2>Cliente</h2>
+
+    @for (int i = 0; i < Model.listaCliente.Count; i++)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => Model.listaCliente.ElementAt(i).nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.listaCliente.ElementAt(i).apellido1)
+            </td>
+            <td>
+                @for (int j = 0; j < Model.listaTelefono.Count; j++)
+                {
+                    if (Model.listaCliente.ElementAt(i).cedula.Equals(Model.listaTelefono.ElementAt(j).cedula))
+                    {
+       
+                        @Html.DisplayFor(modelItem => Model.listaTelefono.ElementAt(j).numero)
+                        @Html.Raw(" ")
+                    }
+                }
+            </td>
+            <td>
+                @for (int j = 0; j < Model.listaCuenta.Count; j++)
+                {
+                    if (Model.listaCliente.ElementAt(i).cedula.Equals(Model.listaCuenta.ElementAt(j).cedula))
+                    {
+
+                        @Html.DisplayFor(modelItem => Model.listaCuenta.ElementAt(j).numero)
+                        @Html.Raw(" ")
+                    }
+                }
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = Model.listaCliente.ElementAt(i).cedula }) |
+                @Html.ActionLink("Details", "Details", new { id = Model.listaCliente.ElementAt(i).cedula }) |
+                @Html.ActionLink("Delete", "Delete", new { id = Model.listaCliente.ElementAt(i).cedula })
+            </td>
+        </tr>
+    }
+
+</table>
